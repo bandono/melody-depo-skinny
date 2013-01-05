@@ -15,8 +15,11 @@
 	<div class="header">
         	<?php if (is_home()) : ?>
         		<h1><?php bloginfo('name'); ?> 
+				<span><?php bloginfo('description'); ?></span></h1>
+				<?php wp_tag_cloud('smallest=8&largest=16'); ?>
         	<?php else : ?>
 		        <h1><a href="<?php echo get_settings('home'); ?>/"><?php bloginfo('name'); ?></a> 
-            <?php endif; ?>
 				<span><?php bloginfo('description'); ?></span></h1>
+	        <?php endif; ?>
+
 	</div><!-- end header -->
