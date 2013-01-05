@@ -35,7 +35,7 @@
         	<?php else : ?>
         	<span class="previous">&larr; <a href="<?php bloginfo('url') ?>">Back to Home</a></span>
             <?php endif; ?>
-            <p>&copy; <?php bloginfo('name'); ?>. Powered by <a href="http://wordpress.org">WordPress</a> using the <a href="http://powazek.com/depo-skinny">DePo Skinny Theme</a>.</p>
+            <p>&copy; <?php bloginfo('name'); ?>. Powered by <a href="http://wordpress.org">WordPress</a> using the modified <a href="http://powazek.com/depo-skinny">DePo Skinny Theme</a>.</p>
             <?php wp_footer(); ?>
 		</div>
 
