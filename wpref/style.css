@@ -1,8 +1,8 @@
 /*
-Theme Name:   DePo Skinny
+Theme Name:   DePo Skinny Tweaked
 Theme URI:    http://powazek.com
-Description:  A slender theme for WP by <a href="http://powazek.com">Derek Powazek</a>
-Version:      1
+Description:  <a heref="http://lakm.us">Arif Kusbandono</a> modified this from clean slender theme for WP by <a href="http://powazek.com">Derek Powazek</a>
+Version:      2
 Author:       Derek Powazek
 Author URI:   http://powazek.com
 */
@@ -18,7 +18,7 @@ body {
     text-align: center;
     font-size: 13px;
     line-height: 18px;
-    font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    font-family: "Lucida Grande",Verdana,"Bitstream Vera Sans",Arial,sans-serif;
 }
 
 img#wpstats { width:0px; height:0px; overflow:hidden; }
@@ -30,12 +30,11 @@ p, ul, ol, li {
     margin-bottom: 18px; 
 }
 
-blockquote { 
-    margin: 0 18px 18px 18px;
-    font-size:12px;
-    color:#666;
-    padding-left:10px;
-    border-left:1px solid #ccc;
+blockquote {
+	background:#F4F5F7 url(img/blockquote.gif) 3px 3px no-repeat;
+	border:1px dashed #CCC;
+	padding:8px 12px 8px 36px;
+	margin:5px 0;
 }
 
 ul {
@@ -259,5 +258,68 @@ ul.delicious { color:#555 }
 
 ul.nav li { margin: 0 }
 
+.wp-caption { 
+	width:500px;
+	vertical-align: middle;
+	border:none; 
+	text-align:center;
+	background: #000;
+	padding:18px 0 5px 0; 
+	margin: 15px 0 15px -5px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;
+	}
 
+	
+.wp-caption p {
+	margin: 15px;
+	font-style: italic;
+	line-height: 1em;
+	color: #fff;
+	padding: 0;
+	}
+	
+.wp-caption alignnone { 
+	width:500px;
+	}
+
+.tags-block{
+	width: 100%;
+	overflow: hidden;
+	margin: 0 0 9px;
+}
+.tags-block h4{
+	font-size: 11px;
+	margin: 0 0 -5px;
+}
+.tags-block ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 11px;
+	font-weight: bold;
+}
+.tags-block ul li{display: inline;}
+
+.tags-block a {
+font-family: Arial, Verdana, Helvetica, sans-serif;
+text-decoration: none;
+padding: 3px 3px 3px 3px;
+font-size: 0.8em;
+font-weight: bold;
+color: #fff;
+background: #900;
+font-variant: small-caps;
+}
+
+.tags-block a:hover {
+font-family: Arial, Verdana, Helvetica, sans-serif;
+text-decoration: none;
+padding: 3px 3px 3px 3px;
+font-size: 0.9em;
+color: #ffdb00;
+background: #000;
+font-variant: small-caps;
+
+}
 
