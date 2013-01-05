@@ -31,8 +31,11 @@
 		<h3><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title(); ?>"><?php the_title(); ?></a><?php edit_post_link('Edit', '<span class="edit">', '</span>'); ?></h3>
 
 		<p class="byline">In <?php the_category(', ') ?> on 
-		<a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title(); ?>"><?php the_time('j F Y') ?></a> <?php the_tags('tagged ', ', ', ''); ?> with <?php comments_popup_link('no comments', '1 comment', '% comments'); ?></p>
-
+		<a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title(); ?>"><?php the_time('j F Y') ?></a>
+		with <?php comments_popup_link('no comments', '1 comment', '% comments'); ?>
+		<div class="tags-block">
+		<?php the_tags('tags: ', ' ', ''); ?></p>
+		</div></p>
 		<?php the_excerpt() ?>
 			
 	</div><!-- end post -->

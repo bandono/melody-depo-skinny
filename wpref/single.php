@@ -6,7 +6,11 @@
 
 		<h3><?php the_title(); ?><?php edit_post_link('Edit', '<span class="edit">', '</span>'); ?></h3>
 
-		<p class="byline">In <?php the_category(', ') ?> on <?php the_time('j F Y') ?> <?php the_tags('tagged ', ', ', ''); ?> with <?php comments_number('no comments', '1 comment', '% comments'); ?></p>
+		<p class="byline">In <?php the_category(', ') ?> on <?php the_time('j F Y') ?>
+		with <?php comments_popup_link('no comments', '1 comment', '% comments'); ?>
+		<div class="tags-block">
+		<?php the_tags('tags: ', ' ', ''); ?></p>
+		</div>
 
 		<?php the_content(); ?>
 
