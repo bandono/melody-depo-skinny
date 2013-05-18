@@ -8,6 +8,9 @@
 
 		<p class="byline">In <?php the_category(', ') ?> on <?php the_time('j F Y') ?>
 		with <?php comments_popup_link('no comments', '1 comment', '% comments'); ?>
+		<img class="noline" alt='flame_ico' src='<?php echo get_bloginfo('template_directory') . '/img/flame-icon20x12-aligned-right.png'; ?>' />
+		<a href="<?php echo get_option( 'depotwk-post-stats-desc-page' ); ?>" title="<?php echo get_option( 'depotwk-post-stats-href-title' ); ?>">
+		<?php echo get_post_meta( get_the_ID(), 'views', true ); ?> views</a>
 		<div class="tags-block">
 		<?php the_tags('tags: ', ' ', ''); ?></p>
 		</div>
