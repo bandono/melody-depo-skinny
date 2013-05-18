@@ -11,6 +11,7 @@
 		<p class="byline">In <?php the_category(', ') ?> on 
 		<a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title(); ?>"><?php the_time('j F Y') ?></a>
 		with <?php comments_popup_link('no comments', '1 comment', '% comments'); ?>
+		<img class="noline" alt='flame_ico' src='<?php echo get_bloginfo('template_directory') . '/img/flame-icon20x12-aligned-right.png'; ?>' />&nbsp;<?php echo get_post_meta( get_the_ID(), 'views', true ); ?> views
 		<div class="tags-block">
 		<?php the_tags('tags: ', ' ', ''); ?></p>
 		</div>
