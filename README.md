@@ -10,7 +10,7 @@ I use it in combination with [flickrRSS] [3] plugin (v5.2) and
 The first plugin is configured to show thumbnails from flickr as somekind
 of header/cover image.
 
-The second plugin is used because I love how [Jetpack] counts post view
+The second plugin is used because I love how [Jetpack] [5] counts post view
 identifying real hit of desktop browsers vs bots and other agents.
 A [flame icon] [6] next to view stats displayed above the post adds tweaked
 look to the clean theme.
