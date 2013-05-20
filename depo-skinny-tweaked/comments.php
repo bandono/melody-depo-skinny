@@ -1,131 +1,59 @@
-<?php // Do not delete these lines
-	if ('comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
-		die ('Please do not load this page directly. Thanks!');
+<?php
+/**
+ * The template for displaying Comments.
+ *
+ * The area of the page that contains both current comments
+ * and the comment form. The actual display of comments is
+ * handled by a callback to twentytwelve_comment() which is
+ * located in the functions.php file.
+ *
+ * @package WordPress
+ * @subpackage DePo_Skinny_Tweaked
+ * @since DePo Skinny Tweaked 2.2
+ */
 
-        if (!empty($post->post_password)) { // if there's a password
-            if ($_COOKIE['wp-postpass_' . COOKIEHASH] != $post->post_password) {  // and it doesn't match the cookie
-	?>
-			
-		<p class="center"><?php _e("This post is password protected. Enter the password to view comments."); ?><p>
-				
-<?php	return; } }
-
-
-	/* Function for seperating comments from track- and pingbacks. */
-	function k2_comment_type_detection($commenttxt = 'Comment', $trackbacktxt = 'Trackback', $pingbacktxt = 'Pingback') {
-		global $comment;
-		if (preg_match('|trackback|', $comment->comment_type))
-			return $trackbacktxt;
-		elseif (preg_match('|pingback|', $comment->comment_type))
-			return $pingbacktxt;
-		else
-			return $commenttxt;
-	}
-
-	$templatedir = get_bloginfo('template_directory');
-	
-	$comment_number = 1;
+/*
+ * If the current post is protected by a password and
+ * the visitor has not yet entered the password we will
+ * return early without loading the comments.
+ */
+if ( post_password_required() )
+	return;
 ?>
-
-<!-- You can start editing here. -->
-
-<?php if (($comments) or ('open' == $post-> comment_status)) { ?>
 
 <div id="comments" class="post">
 
-	<h3 class="comments_headers"><?php comments_number('No Comments Yet', '1 Comment', '% Comments' );?></h3>
-
+	<?php if ( have_comments() ) : ?>
+		<h3 class="comments_headers">
+			<?php
+				printf( _n( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'depo-skinny-tweaked' ),
+					number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
+			?>
+		</h3>
 </div>
-	
-	<?php if ($comments) { ?>
 
-		<?php $count_pings = 1; foreach ($comments as $comment) { ?>
-	
-        <div class="postcomment">
-				<?php comment_text() ?> 
-				<p>Posted by <?php comment_author_link() ?> on <?php comment_date('j F Y @ ga') ?></p>
-				<?php if ($comment->comment_approved == '0') : ?>
-				<p><strong>Your comment is awaiting moderation.</strong></p>
-				<?php endif; ?>
-		</div>
-		<?php $comment_number++; } /* end for each comment */ ?>
+		<ol class="postcomment">
+			<?php wp_list_comments( array( 'callback' => 'depotwk_comment', 'style' => 'ol' ) ); ?>
+		</ol><!-- .commentlist -->
 
-	<?php } else { // this is displayed if there are no comments so far ?>
+		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
+		<nav id="comment-nav-below" class="navigation" role="navigation">
+			<h1 class="assistive-text section-heading"><?php _e( 'Comment navigation', 'depo-skinny-tweaked' ); ?></h1>
+			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'depo-skinny-tweaked' ) ); ?></div>
+			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'depo-skinny-tweaked' ) ); ?></div>
+		</nav>
+		<?php endif; // check for comment navigation ?>
 
-		<?php if ('open' == $post-> comment_status) { ?> 
-		<!-- If comments are open, but there are no comments. -->
-		
-	<br clear="left" />
-    <div class="content">
-		<p>There are no comments yet. You could be the first!</p>
-	</div>
+		<?php
+		/* If there are no comments and comments are closed, let's leave a note.
+		 * But we only want the note on posts and pages that had comments in the first place.
+		 */
+		if ( ! comments_open() && get_comments_number() ) : ?>
+		<p class="nocomments"><?php _e( 'Comments are closed.' , 'depo-skinny-tweaked' ); ?></p>
+		<?php endif; ?>
 
-		<?php } else { // comments are closed ?>
+	<?php endif; // have_comments() ?>
 
-			<!-- If comments are closed. -->
-
-			<?php if (is_single) { // To hide comments entirely on Pages without comments ?>
-			
-	<br clear="left" />
-    <div class="content">
-    	<p>Comments are closed.</p>
-	</div>
-
-			<?php } ?>
-	
-		<?php } ?>
-
-	<?php } ?>
-
-
-	<!-- Comment Form -->
-
-<div class="post">
-
-    <div class="content">
-
-	<?php if ('open' == $post-> comment_status) : ?>
-	
-		<?php if ( get_option('comment_registration') && !$user_ID ) : ?>
-	
-			<p class="unstyled">You must <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php the_permalink(); ?>">log in</a> to post a comment.</p>
-	
-		<?php else : ?>
-
-			<h3 id="respond" class="comments_headers">Leave a Comment</h3>
-			<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="comment_form">
-			
-			<?php if ( $user_ID ) { ?>
-	
-				<p class="unstyled">Logged in as <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>. <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?action=logout" title="<?php _e('Log out of this account') ?>">Logout &raquo;</a></p>
-	
-			<?php } ?>
-			<?php if ( !$user_ID ) { ?>
-				<p><input class="text_input" type="text" name="author" id="author" value="<?php echo $comment_author; ?>" tabindex="1" /><label for="author"><strong> Name</strong></label></p>
-				<p><input class="text_input" type="text" name="email" id="email" value="<?php echo $comment_author_email; ?>" tabindex="2" /><label for="email"><strong> Email</strong></label></p>
-				<p><input class="text_input" type="text" name="url" id="url" value="<?php echo $comment_author_url; ?>" tabindex="3" /><label for="url"><strong> Website</strong></label></p>
-			<?php } ?>
-				<!--<p><small><strong>XHTML:</strong> You can use these tags: <?php echo allowed_tags(); ?></small></p>-->
-			
-				<p><textarea class="text_input text_area" name="comment" id="comment" cols="7" rows="7" tabindex="4"></textarea></p>
-			
-				<?php if (function_exists('show_subscription_checkbox')) { show_subscription_checkbox(); } ?>
-			
-				<p>
-					<input name="submit" class="form_submit" type="submit" id="submit" src="<?php bloginfo('template_url') ?>/images/submit_comment.gif" tabindex="5" value="Submit" />
-					<input type="hidden" name="comment_post_ID" value="<?php echo $id; ?>" />
-				</p>
-		
-				<?php do_action('comment_form', $post->ID); ?>
-	
-			</form>
-
-		<?php endif; // If registration required and not logged in ?>
-
-    </div>
-
+<div id="comments" class="post">
+	<?php comment_form(); ?>
 </div>
-    
-<?php endif; // if you delete this the sky will fall on your head ?>
-
-<?php } ?>
